@@ -1,22 +1,24 @@
-# render.yaml (VERSÃO FINAL E CORRIGIDA)
-services:
+# render.yaml (VERSÃO FINAL COM ESTRUTURA CORRETA)
+
+# A chave principal 'resources' define tudo que será criado.
+resources:
   # --- 1. O Banco de Dados PostgreSQL ---
-  - type: psql
-    name: blaze-db
+  - name: blaze-db
+    type: psql
     plan: free
 
   # --- 2. O Worker em Segundo Plano (Coletor) ---
-  - type: worker
-    name: coletor-blaze
+  - name: coletor-blaze
+    type: worker
     env: python
     plan: free
     buildCommand: "pip install -r requirements.txt"
     startCommand: "python coletor_blaze.py"
     envVars:
       - key: DATABASE_URL
-        fromService:
-          type: psql
+        fromResource:
           name: blaze-db
+          type: psql
           property: connectionString
       - key: PYTHON_VERSION
         value: 3.11.4
@@ -34,8 +36,8 @@ services:
         sync: false
 
   # --- 3. O Serviço Web (Painel Flask) ---
-  - type: web
-    name: monitor-blaze
+  - name: monitor-blaze
+    type: web
     env: python
     plan: free
     buildCommand: "pip install -r requirements.txt"
@@ -43,9 +45,9 @@ services:
     healthCheckPath: /
     envVars:
       - key: DATABASE_URL
-        fromService:
-          type: psql
+        fromResource:
           name: blaze-db
+          type: psql
           property: connectionString
       - key: PYTHON_VERSION
         value: 3.11.4
