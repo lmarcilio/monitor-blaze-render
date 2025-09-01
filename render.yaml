@@ -1,56 +1,25 @@
-# render.yaml (VERSÃO 100% CORRETA)
+# Arquivo: render.yaml
+# Descrição completa ("Blueprint") para o Render.com
 
-# A chave 'services' define a lista de todos os serviços a serem criados.
 services:
-  # --- 1. O Banco de Dados PostgreSQL ---
-  - name: blaze-db
-    type: psql
-    plan: free
-
-  # --- 2. O Worker em Segundo Plano (Coletor) ---
-  - name: coletor-blaze
-    type: worker
+  # Serviço 1: Aplicação Web com Flask (o painel de controle)
+  # Ele será acessível publicamente através de uma URL.
+  - type: web
+    name: bot-dashboard   # Você pode mudar este nome
     env: python
-    plan: free
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "python coletor_blaze.py"
-    envVars:
-      - key: DATABASE_URL
-        fromService:
-          name: blaze-db
-          type: psql
-          property: connectionString
-      - key: PYTHON_VERSION
-        value: 3.11.4
-      - key: TELEGRAM_TOKEN_1
-        sync: false 
-      - key: TELEGRAM_CHAT_ID_1
-        sync: false
-      - key: TELEGRAM_TOKEN_2
-        sync: false
-      - key: TELEGRAM_CHAT_ID_2
-        sync: false
-      - key: TELEGRAM_TOKEN_3
-        sync: false
-      - key: TELEGRAM_CHAT_ID_3
-        sync: false
-
-  # --- 3. O Serviço Web (Painel Flask) ---
-  - name: monitor-blaze
-    type: web
-    env: python
-    plan: free
-    buildCommand: "pip install -r requirements.txt"
+    # IMPORTANTE: Diz ao Render para executar os comandos de dentro da pasta 'app'
+    rootDir: app
+    buildCommand: "pip install -r ../requirements.txt"
     startCommand: "gunicorn app:app"
-    healthCheckPath: /
+    healthCheckPath: /  # O Render verificará se sua página inicial está respondendo
     envVars:
-      - key: DATABASE_URL
-        fromService:
-          name: blaze-db
-          type: psql
-          property: connectionString
       - key: PYTHON_VERSION
-        value: 3.11.4
+        value: 3.11.4 # Use a versão do Python que você usa localmente
+      - key: DATABASE_URL
+        fromDatabase:
+          name: blaze-db   # ATENÇÃO: Mude 'blaze-db' para o nome do seu banco de dados no Render!
+          property: connectionString
+      # Adicione aqui suas variáveis de ambiente do Telegram
       - key: TELEGRAM_TOKEN_1
         sync: false
       - key: TELEGRAM_CHAT_ID_1
@@ -63,3 +32,59 @@ services:
         sync: false
       - key: TELEGRAM_CHAT_ID_3
         sync: false
+
+  # Serviço 2: O Coletor de dados que roda em segundo plano
+  # Ele não tem uma URL pública, apenas executa o script continuamente.
+  - type: worker
+    name: bot-coletor   # Você pode mudar este nome
+    env: python
+    # IMPORTANTE: Também opera de dentro da pasta 'app'
+    rootDir: app
+    buildCommand: "pip install -r ../requirements.txt"
+    startCommand: "python coletor_blaze.py"
+    restartPolicy: on-failure # Reinicia automaticamente se o script falhar
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.4 # Use a mesma versão do Python
+      - key: DATABASE_URL
+        fromDatabase:
+          name: blaze-db   # ATENÇÃO: Use o mesmo nome do seu banco de dados no Render!
+          property: connectionString
+      # O coletor também precisa das variáveis do Telegram para o telegram_notifier
+      - key: TELEGRAM_TOKEN_1
+        fromService:
+          type: web
+          name: bot-dashboard # Puxa do serviço web para não repetir
+          envVarKey: TELEGRAM_TOKEN_1
+      - key: TELEGRAM_CHAT_ID_1
+        fromService:
+          type: web
+          name: bot-dashboard
+          envVarKey: TELEGRAM_CHAT_ID_1
+      - key: TELEGRAM_TOKEN_2
+        fromService:
+          type: web
+          name: bot-dashboard
+          envVarKey: TELEGRAM_TOKEN_2
+      - key: TELEGRAM_CHAT_ID_2
+        fromService:
+          type: web
+          name: bot-dashboard
+          envVarKey: TELEGRAM_CHAT_ID_2
+      - key: TELEGRAM_TOKEN_3
+        fromService:
+          type: web
+          name: bot-dashboard
+          envVarKey: TELEGRAM_TOKEN_3
+      - key: TELEGRAM_CHAT_ID_3
+        fromService:
+          type: web
+          name: bot-dashboard
+          envVarKey: TELEGRAM_CHAT_ID_3
+
+databases:
+  # Define o banco de dados PostgreSQL que será criado pelo Render
+  - name: blaze-db # Este é o nome que usamos acima em 'fromDatabase'
+    databaseName: blaze_data # O nome interno do banco
+    user: blaze_user # O nome do usuário
+    plan: free # Cuidado: O plano 'free' pode apagar os dados após 90 dias de inatividade.
