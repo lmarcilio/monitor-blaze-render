@@ -1,13 +1,9 @@
-# render.yaml (VERSÃO CORRIGIDA)
-version: "1"
-
+# render.yaml (VERSÃO FINAL E CORRIGIDA)
 services:
   # --- 1. O Banco de Dados PostgreSQL ---
-  - type: database # <-- A CORREÇÃO ESTÁ AQUI! (era 'psql')
+  - type: psql
     name: blaze-db
-    databaseName: blaze_monitor
-    user: blaze_user
-    plan: free 
+    plan: free
 
   # --- 2. O Worker em Segundo Plano (Coletor) ---
   - type: worker
@@ -19,7 +15,7 @@ services:
     envVars:
       - key: DATABASE_URL
         fromService:
-          type: database
+          type: psql
           name: blaze-db
           property: connectionString
       - key: PYTHON_VERSION
@@ -48,7 +44,7 @@ services:
     envVars:
       - key: DATABASE_URL
         fromService:
-          type: database
+          type: psql
           name: blaze-db
           property: connectionString
       - key: PYTHON_VERSION
