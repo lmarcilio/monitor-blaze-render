@@ -1,0 +1,81 @@
+# render.yaml
+# Este arquivo define a infraestrutura do seu projeto para o Render.
+
+# Versão do blueprint do Render
+version: "1"
+
+# Lista de todos os serviços que serão criados
+services:
+  # --- 1. O Banco de Dados PostgreSQL ---
+  - type: psql
+    name: blaze-db
+    databaseName: blaze_monitor
+    user: blaze_user
+    plan: free # Usa o plano gratuito para começar.
+    # A URL de conexão será injetada automaticamente nos outros serviços.
+
+  # --- 2. O Worker em Segundo Plano (Coletor) ---
+  - type: worker
+    name: coletor-blaze
+    env: python
+    # O Render executa este comando para instalar as dependências
+    buildCommand: "pip install -r requirements.txt"
+    # O Render executa este comando para iniciar o worker 24/7
+    startCommand: "python coletor_blaze.py"
+    plan: free
+    envVars:
+      # Pega a URL de conexão do banco de dados criado acima
+      - key: DATABASE_URL
+        fromService:
+          type: psql
+          name: blaze-db
+          property: connectionString
+      # Define a versão do Python para garantir consistência
+      - key: PYTHON_VERSION
+        value: 3.11.4 # Se você usou outra versão, ajuste aqui.
+      # Define as variáveis secretas, que serão preenchidas no painel do Render
+      - key: TELEGRAM_TOKEN_1
+        sync: false
+      - key: TELEGRAM_CHAT_ID_1
+        sync: false
+      - key: TELEGRAM_TOKEN_2
+        sync: false
+      - key: TELEGRAM_CHAT_ID_2
+        sync: false
+      - key: TELEGRAM_TOKEN_3
+        sync: false
+      - key: TELEGRAM_CHAT_ID_3
+        sync: false
+
+  # --- 3. O Serviço Web (Painel Flask) ---
+  - type: web
+    name: monitor-blaze
+    env: python
+    # Instala as dependências
+    buildCommand: "pip install -r requirements.txt"
+    # Usa o Gunicorn para rodar a aplicação Flask em produção
+    startCommand: "gunicorn app:app"
+    healthCheckPath: / # O Render vai verificar se a página inicial está respondendo
+    plan: free
+    envVars:
+      # Usa a mesma URL de conexão do banco de dados
+      - key: DATABASE_URL
+        fromService:
+          type: psql
+          name: blaze-db
+          property: connectionString
+      - key: PYTHON_VERSION
+        value: 3.11.4
+      # Usa as mesmas variáveis secretas do Telegram
+      - key: TELEGRAM_TOKEN_1
+        sync: false
+      - key: TELEGRAM_CHAT_ID_1
+        sync: false
+      - key: TELEGRAM_TOKEN_2
+        sync: false
+      - key: TELEGRAM_CHAT_ID_2
+        sync: false
+      - key: TELEGRAM_TOKEN_3
+        sync: false
+      - key: TELEGRAM_CHAT_ID_3
+        sync: false
