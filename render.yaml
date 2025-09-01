@@ -1,7 +1,7 @@
-# render.yaml (VERSÃO FINAL COM ESTRUTURA CORRETA)
+# render.yaml (VERSÃO 100% CORRETA)
 
-# A chave principal 'resources' define tudo que será criado.
-resources:
+# A chave 'services' define a lista de todos os serviços a serem criados.
+services:
   # --- 1. O Banco de Dados PostgreSQL ---
   - name: blaze-db
     type: psql
@@ -16,7 +16,7 @@ resources:
     startCommand: "python coletor_blaze.py"
     envVars:
       - key: DATABASE_URL
-        fromResource:
+        fromService:
           name: blaze-db
           type: psql
           property: connectionString
@@ -45,7 +45,7 @@ resources:
     healthCheckPath: /
     envVars:
       - key: DATABASE_URL
-        fromResource:
+        fromService:
           name: blaze-db
           type: psql
           property: connectionString
