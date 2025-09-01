@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python/
+env/
+venv/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# Banco de Dados (se você ainda tiver o SQLite localmente)
+*.db
+database/blaze_data.db
+
+# Arquivos de configuração sensíveis ou efêmeros (se não forem para o DB)
+strategies/telegram_config.json
+strategies/strategy_status.json
+strategies/strategyColumnMapping.json
+strategies/confluenceModeSettings.json
+strategies/activatorModeSettings.json
+strategies/activator_state.json
+
+# Logs
+*.log
+logs/
+
+# Render specific (if any)
+.render/
+
+# Operating System Files
+.DS_Store
+Thumbs.db

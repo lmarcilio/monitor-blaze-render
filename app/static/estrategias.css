@@ -1,0 +1,158 @@
+/* static/estrategias.css */
+
+.back-button {
+    background-color: var(--roll-bg-color);
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+.back-button:hover { background-color: var(--menu-border); }
+
+.global-filters, .strategy-list-section { margin-top: 2.5rem; }
+h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--menu-border);
+}
+.section-description {
+    font-size: 0.95rem;
+    color: var(--time-color);
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    max-width: 800px;
+}
+
+/* ##### INÍCIO DAS MUDANÇAS NO LAYOUT ##### */
+
+.strategy-list {
+    /* 1. Ativa o layout de grade */
+    display: grid; 
+    
+    /* 2. Define as colunas de forma responsiva */
+    /* - 'repeat': Cria múltiplas colunas.
+       - 'auto-fit': Encaixa o máximo de colunas que couber na tela.
+       - 'minmax(450px, 1fr)': Cada coluna terá no mínimo 450px, mas pode
+         crescer para preencher o espaço (1fr). Em telas pequenas,
+         isso fará com que as colunas fiquem uma abaixo da outra automaticamente. */
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    
+    /* 3. Define o espaçamento entre os cards */
+    gap: 1.5rem;
+}
+
+/* ##### FIM DAS MUDANÇAS NO LAYOUT ##### */
+
+
+.strategy-card {
+    background-color: var(--roll-bg-color);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border-left: 5px solid var(--placeholder-bg);
+    transition: border-left-color 0.3s;
+    /* Adicionado para garantir que o card se comporte bem na grade */
+    display: flex;
+    flex-direction: column;
+}
+.strategy-card.active { border-left-color: var(--menu-highlight); }
+
+.strategy-card header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-grow: 1; /* Faz o header ocupar o espaço disponível */
+}
+.strategy-info {
+    flex-grow: 1;
+    margin-right: 1.5rem;
+}
+.strategy-card h3 {
+    font-size: 1.2rem;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+.strategy-card p {
+    font-size: 0.95rem;
+    color: var(--time-color);
+    line-height: 1.5;
+}
+
+.switch { position: relative; display: inline-block; width: 60px; height: 34px; flex-shrink: 0; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #3c4048; transition: .4s; border-radius: 34px; }
+.slider:before { position: absolute; content: ""; height: 26px; width: 26px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
+input:checked + .slider { background-color: var(--menu-highlight); }
+input:checked + .slider:before { transform: translateX(26px); }
+
+.column-config-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+.column-config-item {
+    background-color: var(--roll-bg-color);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border-top: 4px solid var(--menu-border);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* Espaçamento entre os itens de configuração */
+}
+.column-config-item h4 {
+    font-size: 1.2rem;
+    margin-bottom: 0; /* Removido margin-bottom para usar gap */
+    color: var(--text-color);
+}
+.config-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--time-color);
+}
+
+.strategy-controls {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-shrink: 0;
+    margin-left: 1rem;
+}
+.control-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+.control-group label:first-child {
+    font-size: 0.8rem;
+    color: var(--time-color);
+    font-weight: 500;
+}
+.column-select {
+    background-color: var(--placeholder-bg);
+    color: var(--text-color);
+    border: 1px solid var(--menu-border);
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+}
+
+/* ##### MELHORIA RESPONSIVA PARA CELULARES ##### */
+@media (max-width: 600px) {
+    .strategy-card header {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    .strategy-controls {
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+        margin-left: 0;
+        gap: 1rem;
+    }
+}

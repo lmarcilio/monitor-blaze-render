@@ -1,0 +1,302 @@
+/* Estilos para a página de configurações */
+
+.config-form {
+    background-color: var(--roll-bg-color);
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 800px;
+    margin-top: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--bg-color);
+    border: 1px solid var(--menu-border);
+    color: var(--text-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.form-group input::placeholder {
+    color: var(--time-color);
+}
+
+.form-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.save-btn {
+    background-color: var(--menu-highlight);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.save-btn:hover {
+    background-color: #3a7bc8;
+}
+
+#save-status {
+    font-weight: 500;
+}
+
+.channel-fieldset {
+    border: 1px solid var(--menu-border);
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+}
+
+.channel-fieldset legend {
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 0 10px;
+    color: var(--text-color);
+}
+
+
+/* ### ESTILOS PARA A FERRAMENTA DE GERENCIAMENTO ### */
+.management-tool {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr; /* Duas colunas com proporções diferentes */
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+/* Display de dados ao vivo */
+.management-live-data {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1rem; /* Reduzido */
+}
+
+.risk-display {
+    background-color: var(--bg-color);
+    border: 1px solid var(--menu-border);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+.risk-display span {
+    font-size: 0.9rem;
+    color: var(--time-color);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+.risk-display strong {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--yellow-color);
+}
+
+
+.result-box {
+    flex: 1;
+    background-color: var(--bg-color);
+    padding: 1rem;
+    border-radius: 10px;
+    text-align: center;
+    border: 1px solid var(--menu-border);
+    transition: all 0.3s ease;
+}
+
+.result-box span {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--time-color);
+    margin-bottom: 0.5rem;
+}
+
+.result-box strong {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+/* Cores para o Lucro/Prejuízo */
+.result-box.profit strong { color: var(--green-color); }
+.result-box.loss strong { color: var(--red-text-color); }
+
+.result-box.win-goal-reached {
+    border-color: var(--green-color);
+    box-shadow: 0 0 10px rgba(52, 199, 89, 0.5);
+}
+.result-box.win-goal-reached strong {
+    color: var(--green-color);
+}
+
+.entry-list-container h4 {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--time-color);
+    margin-bottom: 1rem;
+    border-top: 1px solid var(--menu-border);
+    padding-top: 1.5rem;
+}
+
+.entry-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.entry-list .placeholder {
+    color: var(--time-color);
+    font-style: italic;
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.entry-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    background-color: var(--bg-color);
+    padding: 8px 15px;
+    border-radius: 8px;
+    border-left: 4px solid var(--time-color);
+    transition: all 0.3s;
+    opacity: 0.5;
+}
+
+.entry-item.active {
+    opacity: 1;
+    background-color: var(--roll-bg-color);
+    border-left-color: var(--menu-highlight);
+}
+
+.entry-item.win {
+    opacity: 1;
+    background-color: rgba(52, 199, 89, 0.1);
+    border-left-color: var(--green-color);
+}
+
+.entry-item.loss {
+    opacity: 1;
+    background-color: rgba(239, 83, 80, 0.1);
+    border-left-color: var(--red-text-color);
+    text-decoration: line-through;
+}
+
+.entry-item.alert-warning {
+    border-left-color: var(--yellow-color);
+}
+.entry-item.alert-danger {
+    border-left-color: var(--red-text-color);
+}
+
+.entry-number { font-weight: 700; color: var(--time-color); }
+.entry-value { font-size: 1.2rem; font-weight: 700; color: var(--text-color); }
+
+.entry-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.action-btn {
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+}
+.action-btn:hover { transform: scale(1.05); }
+.action-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.win-btn { background-color: var(--green-color); color: white; }
+.loss-btn { background-color: var(--red-text-color); color: white; }
+
+.restart-btn {
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: 700;
+    background-color: var(--menu-highlight);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.restart-btn:hover {
+    background-color: #3a7bc8;
+}
+
+.cycle-end-message {
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 700;
+    margin-top: 1rem;
+}
+.cycle-end-message.win { background-color: rgba(52, 199, 89, 0.1); color: var(--green-color); }
+.cycle-end-message.loss { background-color: rgba(239, 83, 80, 0.1); color: var(--red-text-color); }
+
+/* ESTILO PARA A NOVA MENSAGEM DE RISCO INVIÁVEL */
+.risk-warning {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: rgba(239, 83, 80, 0.15); /* Vermelho mais forte */
+    border: 1px solid var(--red-text-color);
+    color: var(--red-text-color);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    text-align: center;
+}
+.risk-warning strong {
+    display: block;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+.risk-warning p {
+    margin: 0;
+    color: var(--text-color); /* Texto secundário branco para contraste */
+}
+.risk-warning p:last-child {
+    font-style: italic;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    color: var(--time-color);
+}
+
+
+@media (max-width: 900px) {
+    .management-tool {
+        grid-template-columns: 1fr; /* Coluna única */
+    }
+}

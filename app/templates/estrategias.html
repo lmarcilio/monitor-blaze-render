@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Estratégias</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='estrategias.css') }}">
+</head>
+<body>
+    <main class="container">
+        <header>
+            <h1>Gerenciar</h1>
+            <a href="/" class="back-button">Voltar ao Monitor</a>
+        </header>
+        
+        <section class="global-filters">
+            <h2>Configuração dos Painéis do Monitor</h2>
+            <p class="section-description">
+                Para cada painel, você pode ativar modos especiais. Modo Confluência exige que múltiplas estratégias concordem. Modo Ativador filtra os sinais com base em uma condição de tempo e número.
+            </p>
+            <div id="column-config-controls" class="column-config-list">
+                <!-- Coluna 1 -->
+                <div class="column-config-item">
+                    <h4>Painel Estratégia 1</h4>
+                    <div class="config-actions">
+                        <span>Modo Confluência</span>
+                        <label class="switch">
+                            <input type="checkbox" class="confluence-toggle" data-panel="1">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <!-- NOVO CONTROLE DO ATIVADOR -->
+                    <div class="config-actions">
+                        <span>Modo Ativador</span>
+                        <label class="switch">
+                            <input type="checkbox" class="activator-toggle" data-panel="1">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+                <!-- Coluna 2 -->
+                <div class="column-config-item">
+                    <h4>Painel Estratégia 2</h4>
+                    <div class="config-actions">
+                        <span>Modo Confluência</span>
+                        <label class="switch">
+                            <input type="checkbox" class="confluence-toggle" data-panel="2">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <!-- NOVO CONTROLE DO ATIVADOR -->
+                    <div class="config-actions">
+                        <span>Modo Ativador</span>
+                        <label class="switch">
+                            <input type="checkbox" class="activator-toggle" data-panel="2">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+                <!-- Coluna 3 -->
+                <div class="column-config-item">
+                    <h4>Painel Estratégia 3</h4>
+                    <div class="config-actions">
+                        <span>Modo Confluência</span>
+                        <label class="switch">
+                            <input type="checkbox" class="confluence-toggle" data-panel="3">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <!-- NOVO CONTROLE DO ATIVADOR -->
+                    <div class="config-actions">
+                        <span>Modo Ativador</span>
+                        <label class="switch">
+                            <input type="checkbox" class="activator-toggle" data-panel="3">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="strategy-list-section">
+            <h2>Mapeamento de Estratégias</h2>
+            <p class="section-description">
+                Ative cada estratégia, escolha onde exibi-la e se ela deve gerar alertas sonoros de proximidade.
+            </p>
+            <div id="strategy-list" class="strategy-list">
+                <p>Carregando estratégias...</p>
+            </div>
+        </section>
+
+    </main>
+
+    <template id="strategy-card-template">
+        <div class="strategy-card">
+            <header>
+                <div class="strategy-info">
+                    <h3 class="strategy-name"></h3>
+                    <p class="strategy-description"></p>
+                </div>
+                <div class="strategy-controls">
+                    <div class="control-group">
+                        <label>Alerta de Proximidade</label>
+                        <label class="switch">
+                            <input type="checkbox" class="proximity-toggle">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="control-group">
+                        <label>Exibir no Painel</label>
+                        <select class="column-select">
+                            <option value="none">Nenhum</option>
+                            <option value="1">Estratégia 1</option>
+                            <option value="2">Estratégia 2</option>
+                            <option value="3">Estratégia 3</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label>Ativar Estratégia</label>
+                        <label class="switch">
+                            <input type="checkbox" class="strategy-toggle">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </header>
+        </div>
+    </template>
+
+    <script src="{{ url_for('static', filename='estrategias.js') }}"></script>
+</body>
+</html>

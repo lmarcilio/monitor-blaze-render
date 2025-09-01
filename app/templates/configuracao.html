@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='configuracao.css') }}">
+</head>
+<body>
+    <main class="container">
+        <header>
+            <h1>Configurações</h1>
+            <a href="/" class="back-button">Voltar ao Monitor</a>
+        </header>
+
+        <section>
+            <h2>Gerenciamento de Banca Ativo</h2>
+            <p class="section-description">
+                Defina seus parâmetros e gerencie o ciclo clicando em "Acerto" ou "Erro". O sistema recalcula e reinicia automaticamente.
+            </p>
+            <div class="management-tool">
+                 <!-- ... (Seu código do gerenciador de banca aqui) ... -->
+                <div class="management-inputs">
+                    <fieldset class="channel-fieldset">
+                        <legend>Parâmetros do Ciclo</legend>
+                        <div class="form-group">
+                            <label for="banca-input">Banca Inicial (R$)</label>
+                            <input type="number" id="banca-input" placeholder="Ex: 100.00" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="stop-win-input">Meta de Lucro / Stop Win (%)</label>
+                            <input type="number" id="stop-win-input" placeholder="Ex: 10" step="1" value="10">
+                        </div>
+                        <div class="form-group">
+                            <label for="stop-loss-input">Perda Máxima / Stop Loss (%)</label>
+                            <input type="number" id="stop-loss-input" placeholder="Ex: 10" step="1" value="10">
+                        </div>
+                        <div class="form-group">
+                            <label for="multiplier-input">Multiplicador (Gale)</label>
+                            <input type="number" id="multiplier-input" step="0.001" value="1.077">
+                        </div>
+                        <div class="form-group">
+                            <label for="entries-input">Quantidade de Entradas</label>
+                            <input type="number" id="entries-input" placeholder="Ex: 5" step="1" value="5">
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="management-outputs">
+                    <fieldset class="channel-fieldset">
+                        <legend>Resultados e Ações</legend>
+                        <div class="management-live-data">
+                             <div class="result-box" id="current-banca-box">
+                                <span>Banca Atual</span>
+                                <strong id="current-banca-value">R$ 0,00</strong>
+                            </div>
+                             <div class="result-box" id="cycle-pl-box">
+                                <span>L/P do Ciclo</span>
+                                <strong id="cycle-pl-value">R$ 0,00</strong>
+                            </div>
+                        </div>
+
+                        <div class="risk-display">
+                            <span>Risco Total Calculado no Ciclo:</span>
+                            <strong id="total-risk-value">R$ 0,00</strong>
+                        </div>
+
+                        <div class="entry-list-container">
+                            <h4>Valores e Ações de Entrada:</h4>
+                            <div id="entry-list-wrapper">
+                                <div id="entry-list" class="entry-list">
+                                    <p class="placeholder">Preencha os valores para calcular as entradas.</p>
+                                </div>
+                            </div>
+                            <button id="restart-cycle-btn" class="restart-btn" style="display: none;">
+                                Iniciar Novo Ciclo com a Banca Atual
+                            </button>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Notificações do Telegram</h2>
+            <p class="section-description">
+                Configure os detalhes do bot para cada painel de estratégia. Cada painel enviará para seu canal correspondente.
+            </p>
+            <form id="telegram-form" class="config-form">
+                <fieldset class="channel-fieldset">
+                    <legend>Canal Painel Estratégia 1</legend>
+                    <div class="form-group">
+                        <label for="token_1">Token do Bot</label>
+                        <input type="text" id="token_1" placeholder="Cole o token do seu bot aqui">
+                    </div>
+                    <div class="form-group">
+                        <label for="chat_id_1">ID do Canal/Chat</label>
+                        <input type="text" id="chat_id_1" placeholder="Cole o ID do seu canal ou chat aqui">
+                    </div>
+                </fieldset>
+                <fieldset class="channel-fieldset">
+                    <legend>Canal Painel Estratégia 2</legend>
+                    <div class="form-group">
+                        <label for="token_2">Token do Bot 2</label>
+                        <input type="text" id="token_2" placeholder="Token para o segundo canal">
+                    </div>
+                    <div class="form-group">
+                        <label for="chat_id_2">ID do Canal/Chat 2</label>
+                        <input type="text" id="chat_id_2" placeholder="ID para o segundo canal">
+                    </div>
+                </fieldset>
+                <fieldset class="channel-fieldset">
+                    <legend>Canal Painel Estratégia 3</legend>
+                    <div class="form-group">
+                        <label for="token_3">Token do Bot 3</label>
+                        <input type="text" id="token_3" placeholder="Token para o terceiro canal">
+                    </div>
+                    <div class="form-group">
+                        <label for="chat_id_3">ID do Canal/Chat 3</label>
+                        <input type="text" id="chat_id_3" placeholder="ID para o terceiro canal">
+                    </div>
+                </fieldset>
+                <div class="form-actions">
+                    <button type="submit" class="save-btn">Salvar Configurações</button>
+                    <div id="save-status"></div>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='configuracao.js') }}"></script>
+</body>
+</html>

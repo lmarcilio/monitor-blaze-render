@@ -1,0 +1,247 @@
+/* static/estatisticas.css */
+
+.back-button {
+    background-color: var(--roll-bg-color);
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+.back-button:hover {
+    background-color: var(--menu-border);
+}
+
+.stats-section {
+    margin-top: 0;
+    margin-bottom: 2.5rem;
+}
+.stats-section:first-child {
+     margin-top: 2.5rem;
+}
+
+.stats-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--menu-border);
+}
+
+.section-description {
+    font-size: 0.95rem;
+    color: var(--time-color);
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    margin-top: 0.5rem;
+    max-width: 800px;
+}
+
+/* ### NOVO ESTILO PARA O CONTÊINER DO GRÁFICO ### */
+.chart-container {
+    background-color: var(--roll-bg-color);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-top: 1.5rem;
+}
+
+.stats-columns-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 2.5rem;
+}
+
+@media (max-width: 900px) {
+    .stats-columns-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.toggle-buttons {
+    display: flex;
+    border: 1px solid var(--menu-border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    max-width: 350px;
+}
+.toggle-btn {
+    flex: 1;
+    padding: 10px 15px;
+    background-color: transparent;
+    border: none;
+    color: var(--time-color);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 0.9rem;
+}
+.toggle-btn:first-child {
+    border-right: 1px solid var(--menu-border);
+}
+.toggle-btn.active {
+    background-color: var(--menu-highlight);
+    color: white;
+}
+.toggle-btn.active svg {
+    display: inline-block;
+}
+.toggle-btn:not(.active) svg {
+    display: none;
+}
+.hourly-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+.hour-stat-item {
+    background-color: var(--roll-bg-color);
+    border-radius: 10px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 2px solid transparent;
+    transition: border-color 0.3s;
+}
+.hour-stat-item.current-hour {
+    border-color: var(--menu-highlight);
+}
+.hour-stat-item.disabled {
+    opacity: 0.4;
+    background-color: var(--placeholder-bg);
+}
+.hour-label {
+    font-weight: 500;
+    color: var(--time-color);
+    font-size: 1rem;
+}
+.color-counts-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.color-count {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    min-width: 40px;
+    text-align: center;
+}
+.color-count.preto-bg {
+    background-color: #3c4048;
+    color: var(--text-color);
+}
+.color-count.vermelho-bg {
+    background-color: var(--red-text-color);
+    color: white;
+}
+.color-count.branco-bg {
+    background-color: #f0f0f0;
+    color: #1a1c20;
+    border: 1px solid var(--red-text-color);
+}
+
+.color-stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+.no-data-message, .color-stats-container p, .sequence-list p {
+    color: var(--time-color);
+    font-style: italic;
+    padding: 2rem;
+    text-align: center;
+    background-color: var(--roll-bg-color);
+    border-radius: 12px;
+    grid-column: 1 / -1;
+}
+.stat-card {
+    background-color: var(--roll-bg-color);
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+}
+.stat-value {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+.stat-label {
+    font-size: 1rem;
+    color: var(--time-color);
+    font-weight: 500;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+.controls label {
+    font-size: 1rem;
+    color: var(--time-color);
+    font-weight: 500;
+}
+.control-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+.filter-btn {
+    background-color: var(--roll-bg-color);
+    color: var(--time-color);
+    border: 1px solid var(--menu-border);
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+.filter-btn:hover {
+    background-color: var(--menu-border);
+    color: var(--text-color);
+}
+.filter-btn.active {
+    background-color: var(--menu-highlight);
+    color: white;
+    border-color: var(--menu-highlight);
+}
+
+.sequence-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.sequence-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    align-items: center;
+    background-color: var(--roll-bg-color);
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    gap: 1.5rem;
+    font-size: 1.2rem;
+    transition: all 0.3s;
+    border-left: 4px solid transparent;
+}
+.sequence-rank { grid-column: 1; font-weight: 700; color: var(--time-color); font-size: 1rem; min-width: 30px; }
+.sequence-icons { grid-column: 2; display: flex; gap: 0.75rem; }
+.sequence-icons span { font-size: 1.8rem; }
+.sequence-count { grid-column: 3; font-weight: 700; color: var(--text-color); background-color: var(--placeholder-bg); padding: 6px 12px; border-radius: 8px; font-size: 1rem; }
+.sequence-action { grid-column: 4; }
+
+.switch { position: relative; display: inline-block; width: 60px; height: 34px; flex-shrink: 0; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #3c4048; transition: .4s; border-radius: 34px; }
+.slider:before { position: absolute; content: ""; height: 26px; width: 26px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
+input:checked + .slider { background-color: var(--menu-highlight); }
+input:checked + .slider:before { transform: translateX(26px); }

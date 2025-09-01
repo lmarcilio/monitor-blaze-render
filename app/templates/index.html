@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitor de Resultados</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- ### ADICIONADO SCRIPT DO CHART.JS ### -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <main class="container">
+        <header>
+            <h1>Monitor de Resultados</h1>
+            <a href="/configuracao" class="nav-button">Configurações</a>
+            <a href="/estrategias" class="nav-button">Gerenciar</a>
+            <a href="/estatisticas" class="nav-button">Estatísticas</a>
+            <button id="visibility-toggle-btn" class="nav-button" title="Gerenciar Exibição">👁️</button>
+            <button id="sound-toggle" class="nav-button" title="Ativar/Desativar Som">🔇</button>
+            <div class="status" id="status-indicator">
+                <span class="dot"></span>
+                <span id="status-text">Conectando...</span>
+            </div>
+        </header>
+
+        <div id="visibility-controls" class="visibility-controls-panel">
+            <h4>Exibir/Ocultar Seções</h4>
+            <ul id="visibility-list"></ul>
+        </div>
+
+        <section id="sequence-alert-section" class="sequence-alert-section"></section>
+        
+        <section id="signals-dashboard" class="signals-dashboard">
+            <div class="signal-column">
+                <div class="column-header">
+                    <h2 class="column-title" id="column-1-title">Painel Estratégia 1</h2>
+                    <div class="panel-status-indicator" id="panel-1-status"></div>
+                </div>
+                <div id="column-1-container" class="signal-card-container">
+                    <p class="placeholder">Aguardando sinais...</p>
+                </div>
+            </div>
+            <div class="signal-column">
+                <div class="column-header">
+                    <h2 class="column-title" id="column-2-title">Painel Estratégia 2</h2>
+                    <div class="panel-status-indicator" id="panel-2-status"></div>
+                </div>
+                <div id="column-2-container" class="signal-card-container">
+                     <p class="placeholder">Aguardando sinais...</p>
+                </div>
+            </div>
+            <div class="signal-column">
+                <div class="column-header">
+                    <h2 class="column-title" id="column-3-title">Painel Estratégia 3</h2>
+                    <div class="panel-status-indicator" id="panel-3-status"></div>
+                </div>
+                <div id="column-3-container" class="signal-card-container">
+                     <p class="placeholder">Aguardando sinais...</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="interval-averages-section" class="stats-section-index">
+             <h2 class="section-title">Médias de Alvo (Curta e Longa)</h2>
+            <div id="interval-averages-container-index" class="stats-card-container-index">
+                <p>Calculando médias...</p>
+            </div>
+        </section>
+
+        <!-- ### NOVA SEÇÃO PARA O GRÁFICO DE MINUTOS ### -->
+        <section id="white-minutes-chart-section" class="stats-section-index">
+            <h2 class="section-title">Minutos Mais Frequentes para o Branco (Hoje)</h2>
+            <div class="chart-container">
+                <canvas id="white-minutes-chart-index"></canvas>
+            </div>
+        </section>
+
+        <section id="active-management-widget" class="active-management-widget">
+             <h3 class="widget-title">Ciclo de Entradas Ativo</h3>
+            <div id="live-entry-display" class="live-entry-display">
+                <div class="entry-info">
+                    <span id="main-entry-number">Entrada X</span>
+                    <strong id="main-entry-value">R$ 0,00</strong>
+                </div>
+                <div class="entry-actions-main">
+                    <button id="main-win-btn" class="action-btn win-btn">Acerto</button>
+                    <button id="main-loss-btn" class="action-btn loss-btn">Erro</button>
+                </div>
+            </div>
+            <div id="inactive-cycle-placeholder" class="inactive-cycle-placeholder" style="display: none;">
+                <p>Nenhum ciclo ativo. Configure e inicie na página de <a href="/configuracao">Configurações</a>.</p>
+            </div>
+        </section>
+
+        <div class="controls-container">
+             <div class="rounds-control-group">
+                <label for="rounds-input">Rodadas:</label>
+                <input type="number" id="rounds-input" value="120" min="20" max="1000">
+                <button id="apply-rounds-btn">Aplicar</button>
+            </div>
+        </div>
+
+        <section id="results-grid" class="results-grid"></section>
+    </main>
+
+    <audio id="notification-sound" src="{{ url_for('static', filename='sounds/alerta.mp3') }}" preload="auto"></audio>
+    <audio id="toggle-sound" src="{{ url_for('static', filename='sounds/click.mp3') }}" preload="auto"></audio>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

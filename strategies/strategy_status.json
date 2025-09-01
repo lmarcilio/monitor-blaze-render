@@ -1,0 +1,15 @@
+{
+    "soma_dez_min_antes": false,
+    "soma_tres_vermelhos_antes_branco": false,
+    "soma_digitos_horario": false,
+    "soma_minutos_pos_branco": false,
+    "intervalo_brancos": false,
+    "rastreio_brancos": false,
+    "numeros_magicos": false,
+    "unidade_minuto_pos_branco": false,
+    "medias_intervalo_brancos": false,
+    "cacador_de_espelhos": true,
+    "correcao_espelho_miss": false,
+    "combinacao_digitos_vizinhos": false,
+    "soma_minutos_multiplicada": true
+}
